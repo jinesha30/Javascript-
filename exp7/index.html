@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Experiment 7</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+background: #189696;
+margin: 20px;
+}
+.container {
+width: 650px;
+margin: auto;
+background: white;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+h2 {
+text-align: center;
+color: #333;
+}
+h3 {
+color: #444;
+}
+h4 {
+text-align: center;
+color: #333;
+}
+input[type="number"],
+input[type="text"] {
+width: 100%;
+padding: 8px;
+margin: 8px 0;
+box-sizing: border-box;
+}
+button {
+padding: 10px 18px;
+background: #007bff;
+color: white;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+margin-top: 5px;
+}
+
+button:hover {
+background: #0056b3;
+}
+.result {
+margin-top: 10px;
+font-weight: bold;
+}
+#currentArray {
+background: #eef5ff;
+padding: 10px;
+border-radius: 5px;
+font-size: 18px;
+font-weight: bold;
+color: #003366;
+word-wrap: break-word;
+}
+hr {
+margin: 20px 0;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Experiment 7</h2>
+<h4>ANANYA JAISWAL | 42308 | BE-7 | P7</h4>
+<h3>Create Array</h3>
+<label>Enter Array Size</label>
+<input
+type="number"
+id="size"
+min="1"
+placeholder="Enter array size"
+>
+<button onclick="initializeArray()">
+Initialize Array
+</button>
+<br><br>
+<label>Enter Element</label>
+<input
+type="text"
+id="element"
+placeholder="Example: 10, hello, [1,2,3]"
+>
+
+<button onclick="addElement()">
+Add Element
+</button>
+<div id="createOutput" class="result"></div>
+<h3>Current Array</h3>
+<div id="currentArray">[]</div>
+<hr>
+<h3>Check Object at Index for Array</h3>
+<label>Enter Array Index</label>
+<input
+type="number"
+id="indexInput"
+min="0"
+placeholder="Enter index"
+>
+<button onclick="checkArray()">
+Check
+</button>
+<div id="indexOutput" class="result"></div>
+</div>
+<script>
+let arr = [];
+let maxSize = 0;
+let initialized = false;
+
+// Display current array
+function updateCurrentArray() {
+document.getElementById("currentArray").textContent =
+JSON.stringify(arr);
+}
+
+// Initialize Array
+function initializeArray() {
+let sizeInput =
+document.getElementById("size").value.trim();
+if (!/^[1-9]\d*$/.test(sizeInput)) {
+document.getElementById("createOutput").innerHTML =
+"<span style='color:red;'>" +
+
+"Please enter a positive integer for the array size." +
+"</span>";
+return;
+}
+maxSize = parseInt(sizeInput);
+arr = [];
+initialized = true;
+document.getElementById("element").value = "";
+document.getElementById("indexInput").value = "";
+document.getElementById("indexOutput").innerHTML = "";
+document.getElementById("createOutput").innerHTML =
+"<span style='color:green;'>" +
+"Array initialized. Add elements one by one." +
+"</span>";
+updateCurrentArray();
+}
+
+// Add Element
+function addElement() {
+if (!initialized) {
+document.getElementById("createOutput").innerHTML =
+"<span style='color:red;'>" +
+"Initialize the array first." +
+"</span>";
+return;
+}
+
+// Check overflow
+if (arr.length >= maxSize) {
+document.getElementById("createOutput").innerHTML =
+"<span style='color:red;'>" +
+"Array Overflow! Maximum size reached." +
+"</span>";
+return;
+}
+
+let input =
+document.getElementById("element").value.trim();
+
+// Check empty input
+if (input === "") {
+document.getElementById("createOutput").innerHTML =
+"<span style='color:red;'>" +
+"Please enter an element." +
+"</span>";
+return;
+}
+
+let value;
+
+// If input is an array
+if (input.startsWith("[") && input.endsWith("]")) {
+try {
+value = JSON.parse(input);
+if (!Array.isArray(value)) {
+throw new Error();
+}
+}
+catch (error) {
+document.getElementById("createOutput").innerHTML =
+"<span style='color:red;'>" +
+"Invalid array format. Example: [1,2,3]" +
+"</span>";
+return;
+}
+}
+
+// If input is a number
+else if (!isNaN(input)) {
+value = Number(input);
+}
+
+// Otherwise treat it as a string
+else {
+value = input;
+}
+
+// Add value to array
+arr.push(value);
+document.getElementById("element").value = "";
+
+document.getElementById("createOutput").innerHTML =
+"<span style='color:green;'>" +
+"Element added successfully." +
+"</span>";
+updateCurrentArray();
+}
+
+// Check Object at Index
+function checkArray() {
+if (!initialized) {
+document.getElementById("indexOutput").innerHTML =
+"<span style='color:red;'>" +
+"Initialize the array first." +
+"</span>";
+return;
+}
+
+if (arr.length === 0) {
+document.getElementById("indexOutput").innerHTML =
+"<span style='color:red;'>" +
+"Array is Empty." +
+"</span>";
+return;
+}
+
+let indexInput =
+document.getElementById("indexInput").value.trim();
+
+// Validate index
+if (!/^\d+$/.test(indexInput)) {
+document.getElementById("indexOutput").innerHTML =
+"<span style='color:red;'>" +
+"Please enter a valid index." +
+"</span>";
+return;
+}
+
+let index = parseInt(indexInput);
+
+// Check index range
+if (index < 0 || index >= arr.length) {
+
+document.getElementById("indexOutput").innerHTML =
+"<span style='color:red;'>" +
+"Invalid Index." +
+"</span>";
+return;
+}
+
+let object = arr[index];
+
+// Check whether object is an Array
+if (Array.isArray(object)) {
+document.getElementById("indexOutput").innerHTML =
+"<span style='color:green;'>" +
+"The object at index <b>" +
+index +
+"</b> is an Array.<br>" +
+"Value: <b>" +
+JSON.stringify(object) +
+"</b>" +
+"</span>";
+}
+else {
+document.getElementById("indexOutput").innerHTML =
+"<span style='color:red;'>" +
+"The object at index <b>" +
+index +
+"</b> is NOT an Array.<br>" +
+"Value: <b>" +
+object +
+"</b>" +
+"</span>";
+}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Array Operations</title>
+<style>
+body{
+font-family: Arial, sans-serif;
+background:#189696;
+margin:20px;
+}
+.container{
+width:650px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+h2{
+text-align:center;
+color:#333;
+}
+h3{
+color:#444;
+}
+h4{
+text-align:center;
+color:#333;
+}
+input[type="number"],
+input[type="text"]{
+width:100%;
+padding:8px;
+margin:8px 0;
+box-sizing:border-box;
+}
+button{
+padding:10px 18px;
+background:#007bff;
+color:white;
+border:none;
+
+border-radius:5px;
+cursor:pointer;
+margin-top:5px;
+}
+button:hover{
+background:#0056b3;
+}
+.result{
+margin-top:10px;
+font-weight:bold;
+}
+#currentArray{
+background:#eef5ff;
+padding:10px;
+border-radius:5px;
+font-size:18px;
+font-weight:bold;
+color:#003366;
+}
+hr{
+margin:20px 0;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Array Operations</h2>
+<h4>Jinesha Kothari | 42342 | BE-7 | R7</h4>
+<h3>Create Array</h3>
+<label>Enter Array Size</label>
+<input type="number" id="size" min="1">
+<button onclick="initializeArray()">Initialize Array</button>
+<br><br>
+<label>Enter Element</label>
+<input type="text" id="element" placeholder="Enter one element">
+<button onclick="addElement()">Add Element</button>
+<div id="createOutput" class="result"></div>
+<!-- Current Array moved here -->
+<h3>Current Array</h3>
+<div id="currentArray">[]</div>
+<hr>
+<h3>Remove Element</h3>
+<input type="radio" name="removeType" value="value" checked>
+Remove By Value
+<input type="radio" name="removeType" value="index">
+Remove By Index
+<input type="text" id="removeInput" placeholder="Enter Value or Index">
+<button onclick="removeElement()">Remove</button>
+<div id="removeOutput" class="result"></div>
+
+<hr>
+<h3>Search Element</h3>
+<input type="text" id="searchValue" placeholder="Enter Value">
+<button onclick="searchElement()">Search</button>
+<div id="searchOutput" class="result"></div>
+<hr>
+<h3>Empty Array</h3>
+<button onclick="flushArray()">Flush Array</button>
+<div id="flushOutput" class="result"></div>
+</div>
+<script>
+let arr = [];
+let maxSize = 0;
+let initialized = false;
+function updateCurrentArray()
+{
+document.getElementById("currentArray").innerHTML =
+"[" + arr.join(", ") + "]";
+}
+function initializeArray()
+{
+let sizeInput = document.getElementById("size").value.trim();
+if(!/^[1-9]\d*$/.test(sizeInput))
+{
+document.getElementById("createOutput").innerHTML =
+"<span style='color:red;'>Please enter a positive integer for the array size.</span>";
+return;
+}
+maxSize = parseInt(sizeInput);
+arr = [];
+initialized = true;
+document.getElementById("element").value = "";
+document.getElementById("createOutput").innerHTML =
+"<span style='color:green;'>Array initialized. Add elements one by one.</span>";
+updateCurrentArray();
+}
+function addElement()
+{
+if(!initialized)
+{
+document.getElementById("createOutput").innerHTML =
+"<span style='color:red;'>Initialize the array first.</span>";
+return;
+}
+let value = document.getElementById("element").value.trim();
+if(!/^[1-9]\d*$/.test(value))
+{
+document.getElementById("createOutput").innerHTML =
+"<span style='color:red;'>Only positive integer values are allowed.</span>";
+
+return;
+}
+if(arr.length >= maxSize)
+{
+document.getElementById("createOutput").innerHTML =
+"<span style='color:red;'>Array Overflow! Maximum size reached.</span>";
+return;
+}
+arr.push(value);
+document.getElementById("element").value = "";
+document.getElementById("createOutput").innerHTML =
+"<span style='color:green;'>Element added successfully.</span>";
+updateCurrentArray();
+}
+function removeElement()
+{
+if(arr.length === 0)
+{
+document.getElementById("removeOutput").innerHTML =
+"<span style='color:red;'>Array is Empty.</span>";
+return;
+}
+let type = document.querySelector('input[name="removeType"]:checked').value;
+let input = document.getElementById("removeInput").value.trim();
+if(type === "value")
+{
+let index = arr.indexOf(input);
+if(index === -1)
+{
+document.getElementById("removeOutput").innerHTML =
+"<span style='color:red;'>Element is not present within Array.</span>";
+return;
+}
+let removedElement = arr[index];
+arr.splice(index,1);
+document.getElementById("removeOutput").innerHTML =
+"<span style='color:green;'>Element <b>" + removedElement +
+"</b> removed from index <b>" + index + "</b>.</span>";
+}
+else
+{
+let index = parseInt(input);
+if(isNaN(index) || index < 0 || index >= arr.length)
+{
+document.getElementById("removeOutput").innerHTML =
+"<span style='color:red;'>Invalid Index.</span>";
+return;
+}
+let removedElement = arr[index];
+
+arr.splice(index,1);
+document.getElementById("removeOutput").innerHTML =
+"<span style='color:green;'>Element <b>" + removedElement +
+"</b> removed at index <b>" + index + "</b>.</span>";
+}
+document.getElementById("removeInput").value = "";
+updateCurrentArray();
+}
+function searchElement()
+{
+if(arr.length === 0)
+{
+document.getElementById("searchOutput").innerHTML =
+"<span style='color:red;'>Array is Empty.</span>";
+return;
+}
+let value = document.getElementById("searchValue").value.trim();
+let index = arr.indexOf(value);
+if(index === -1)
+{
+document.getElementById("searchOutput").innerHTML =
+"<span style='color:red;'>Element Not Found.</span>";
+}
+else
+{
+document.getElementById("searchOutput").innerHTML =
+"<span style='color:green;'>First occurrence found at index " + index + ".</span>";
+}
+}
+function flushArray()
+{
+arr = [];
+maxSize = 0;
+initialized = false;
+document.getElementById("element").value = "";
+document.getElementById("size").value = "";
+document.getElementById("removeInput").value = "";
+document.getElementById("searchValue").value = "";
+document.getElementById("createOutput").innerHTML = "";
+document.getElementById("removeOutput").innerHTML = "";
+document.getElementById("searchOutput").innerHTML = "";
+document.getElementById("flushOutput").innerHTML =
+"<span style='color:green;'>Array has been emptied successfully.</span>";
+updateCurrentArray();
+}
+</script>
+</body>
+</html>

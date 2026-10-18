@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Various Methods of String Comparison</title>
+
+    <style>
+
+        body{
+            font-family: Arial, sans-serif;
+            background-color:#f2f2f2;
+            margin:30px;
+        }
+
+        h1{
+            text-align:center;
+            color:darkblue;
+        }
+
+        .container{
+            width:700px;
+            margin:auto;
+        }
+
+        .section{
+            background:white;
+            border:2px solid #999;
+            border-radius:10px;
+            padding:20px;
+            margin-bottom:25px;
+            box-shadow:0px 0px 8px gray;
+        }
+
+        h2{
+            color:darkgreen;
+        }
+
+        label{
+            display:inline-block;
+            width:160px;
+            font-weight:bold;
+        }
+
+        input{
+            width:250px;
+            padding:8px;
+            font-size:15px;
+        }
+
+        button{
+            margin-top:15px;
+            padding:8px 18px;
+            font-size:15px;
+            cursor:pointer;
+        }
+
+        .result{
+            margin-top:15px;
+            font-size:18px;
+            color:darkred;
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h1>Various Methods of String Comparison</h1>
+
+<div class="container">
+
+
+<!-- ===================================================== -->
+<!-- 1. STRICT EQUALITY -->
+<!-- ===================================================== -->
+
+<div class="section">
+
+<h2>1. Strict Equality (===)</h2>
+
+<label>Enter String 1 :</label>
+<input type="text" id="eq1">
+
+<br><br>
+
+<label>Enter String 2 :</label>
+<input type="text" id="eq2">
+
+<br><br>
+
+<button onclick="compareEquality()">Compare</button>
+
+<div id="eqResult" class="result"></div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- 2. LENGTH COMPARISON -->
+<!-- ===================================================== -->
+
+<div class="section">
+
+<h2>2. Length Comparison</h2>
+
+<label>Enter String 1 :</label>
+<input type="text" id="len1">
+
+<br><br>
+
+<label>Enter String 2 :</label>
+<input type="text" id="len2">
+
+<br><br>
+
+<button onclick="compareLength()">Compare</button>
+
+<div id="lenResult" class="result"></div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- 3. ALPHABETICAL COMPARISON -->
+<!-- ===================================================== -->
+
+<div class="section">
+
+<h2>3. Alphabetical Comparison (localeCompare)</h2>
+
+<label>Enter String 1 :</label>
+<input type="text" id="alpha1">
+
+<br><br>
+
+<label>Enter String 2 :</label>
+<input type="text" id="alpha2">
+
+<br><br>
+
+<button onclick="compareAlphabet()">Compare</button>
+
+<div id="alphaResult" class="result"></div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- 4. ASCII COMPARISON -->
+<!-- ===================================================== -->
+
+<div class="section">
+
+<h2>4. ASCII Sum Comparison</h2>
+
+<label>Enter String 1 :</label>
+<input type="text" id="ascii1">
+
+<br><br>
+
+<label>Enter String 2 :</label>
+<input type="text" id="ascii2">
+
+<br><br>
+
+<button onclick="compareASCII()">Compare</button>
+
+<div id="asciiResult" class="result"></div>
+
+</div>
+
+</div>
+
+
+<script>
+
+
+//==========================================================
+// 1. STRICT EQUALITY
+//==========================================================
+
+function compareEquality()
+{
+
+    let str1 = document.getElementById("eq1").value;
+    let str2 = document.getElementById("eq2").value;
+
+    if(str1=="" || str2=="")
+    {
+        alert("Please enter both strings.");
+        return;
+    }
+
+    if(str1===str2)
+    {
+        document.getElementById("eqResult").innerHTML =
+        "Result : Strings are Equal.";
+    }
+    else
+    {
+        document.getElementById("eqResult").innerHTML =
+        "Result : Strings are Not Equal.";
+    }
+
+}
+
+
+//==========================================================
+// 2. LENGTH COMPARISON
+//==========================================================
+
+function compareLength()
+{
+
+    let str1 = document.getElementById("len1").value;
+    let str2 = document.getElementById("len2").value;
+
+    if(str1=="" || str2=="")
+    {
+        alert("Please enter both strings.");
+        return;
+    }
+
+    if(str1.length == str2.length)
+    {
+        document.getElementById("lenResult").innerHTML =
+        "Result : Strings are Equal.";
+    }
+    else
+    {
+        document.getElementById("lenResult").innerHTML =
+        "Result : Strings are Not Equal.";
+    }
+
+}
+
+
+//==========================================================
+// 3. ALPHABETICAL COMPARISON
+//==========================================================
+
+function compareAlphabet()
+{
+
+    let str1 = document.getElementById("alpha1").value;
+    let str2 = document.getElementById("alpha2").value;
+
+    if(str1=="" || str2=="")
+    {
+        alert("Please enter both strings.");
+        return;
+    }
+
+    let result = str1.localeCompare(str2);
+
+    if(result == 0)
+    {
+        document.getElementById("alphaResult").innerHTML =
+        "Result : Strings are Equal.";
+    }
+    else
+    {
+        document.getElementById("alphaResult").innerHTML =
+        "Result : Strings are Not Equal.";
+    }
+
+}
+
+
+//==========================================================
+// 4. ASCII SUM COMPARISON
+//==========================================================
+
+function compareASCII()
+{
+
+    let str1 = document.getElementById("ascii1").value;
+    let str2 = document.getElementById("ascii2").value;
+
+    if(str1=="" || str2=="")
+    {
+        alert("Please enter both strings.");
+        return;
+    }
+
+    let sum1 = 0;
+    let sum2 = 0;
+
+    for(let i=0;i<str1.length;i++)
+    {
+        sum1 += str1.charCodeAt(i);
+    }
+
+    for(let i=0;i<str2.length;i++)
+    {
+        sum2 += str2.charCodeAt(i);
+    }
+
+    if(sum1 == sum2)
+    {
+        document.getElementById("asciiResult").innerHTML =
+        "Result : Strings are Equal.";
+    }
+    else
+    {
+        document.getElementById("asciiResult").innerHTML =
+        "Result : Strings are Not Equal.";
+    }
+
+}
+
+</script>
+
+</body>
+</html>

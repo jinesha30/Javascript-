@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Changing Home Page Background Color</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f2f2f2;
+            margin: 30px;
+        }
+
+        h1 {
+            color: darkblue;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .box {
+            width: 300px;
+            padding: 30px;
+            margin: 15px;
+            background-color: white;
+            border: 2px solid gray;
+            border-radius: 10px;
+            box-shadow: 0 0 8px gray;
+        }
+
+        h2 {
+            color: darkgreen;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+
+        input:focus {
+            outline: 2px solid lightblue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Changing Home Page Background Color</h1>
+
+    <div class="container">
+
+        <!-- Mouseover Event -->
+
+        <div class="box" onmouseover="changeMouseColor()">
+            <h2>Mouseover Event</h2>
+            <p>Move your mouse over this box to change the
+               background color of the webpage.</p>
+        </div>
+
+        <!-- Focus Event -->
+
+        <div class="box">
+            <h2>Focus Event</h2>
+            <p>Click inside the input field to change the
+               background color of the webpage.</p>
+
+            <input type="text"
+                   placeholder="Click here"
+                   onfocus="changeFocusColor()">
+        </div>
+
+    </div>
+
+    <script>
+        // Function for mouseover event
+
+        function changeMouseColor() {
+            document.body.style.backgroundColor = "lightblue";
+        }
+
+        // Function for focus event
+
+        function changeFocusColor() {
+            document.body.style.backgroundColor = "lightgreen";
+        }
+    </script>
+
+</body>
+</html>

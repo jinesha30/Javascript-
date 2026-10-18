@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>String Operations</title>
+
+    <style>
+
+        body{
+            font-family: Arial, sans-serif;
+            background-color:#f2f2f2;
+            margin:30px;
+        }
+
+        h1{
+            text-align:center;
+            color:darkblue;
+        }
+
+        .section{
+            background:white;
+            border:2px solid #ccc;
+            border-radius:10px;
+            padding:20px;
+            margin-bottom:25px;
+            box-shadow:0px 0px 8px gray;
+        }
+
+        h2{
+            color:darkgreen;
+        }
+
+        label{
+            display:inline-block;
+            width:220px;
+            font-weight:bold;
+        }
+
+        input{
+            width:220px;
+            padding:7px;
+            font-size:15px;
+        }
+
+        button{
+            margin-top:15px;
+            padding:8px 18px;
+            font-size:15px;
+            cursor:pointer;
+        }
+
+        .result{
+            margin-top:15px;
+            font-size:20px;
+            color:darkred;
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h1>String Operations using JavaScript</h1>
+
+
+<!-- ================= Reverse String ================= -->
+
+<div class="section">
+
+<h2>1. Reverse String</h2>
+
+<label>String Length:</label>
+<input type="number" id="length">
+
+<br><br>
+
+<label>Enter String:</label>
+<input type="text" id="str">
+
+<br><br>
+
+<button onclick="reverseString()">Reverse</button>
+
+<div id="reverseResult" class="result"></div>
+
+</div>
+
+
+<!-- ================= Replace Character ================= -->
+
+<div class="section">
+
+<h2>2. Replace Character</h2>
+
+<label>Enter String:</label>
+<input type="text" id="replaceStr">
+
+<br><br>
+
+<label>Character to Replace:</label>
+<input type="text" id="oldChar" maxlength="1">
+
+<br><br>
+
+<label>Replacement Character:</label>
+<input type="text" id="newChar" maxlength="1">
+
+<br><br>
+
+<button onclick="replaceOne()">Replace One</button>
+
+<button onclick="replaceAllCharacters()">Replace All</button>
+
+<div id="replaceResult" class="result"></div>
+
+</div>
+
+
+<!-- ================= Palindrome ================= -->
+
+<div class="section">
+
+<h2>3. Palindrome Check</h2>
+
+<label>Enter String:</label>
+<input type="text" id="palStr">
+
+<br><br>
+
+<button onclick="checkPalindrome()">Check Palindrome</button>
+
+<div id="palResult" class="result"></div>
+
+</div>
+
+
+<script>
+
+
+//================ Reverse String ===================
+
+function reverseString()
+{
+
+    let length = parseInt(document.getElementById("length").value);
+
+    let str = document.getElementById("str").value;
+
+    if(str=="")
+    {
+        alert("Please enter a string.");
+        return;
+    }
+
+    if(str.length != length)
+    {
+        alert("Entered string length does not match.");
+        return;
+    }
+
+    let reversed = str.split("").reverse().join("");
+
+    document.getElementById("reverseResult").innerHTML =
+    "Reversed String : " + reversed;
+
+}
+
+
+//================ Replace One Character ===================
+
+function replaceOne()
+{
+    let str = document.getElementById("replaceStr").value;
+
+    let oldChar = document.getElementById("oldChar").value;
+
+    let newChar = document.getElementById("newChar").value;
+
+    if(str=="" || oldChar=="" || newChar=="")
+    {
+        alert("Please fill all fields.");
+        return;
+    }
+
+    // Check if character is present
+    if(!str.includes(oldChar))
+    {
+        document.getElementById("replaceResult").innerHTML =
+        "Character '" + oldChar + "' is not present in the string.";
+
+        return;
+    }
+
+    // Replace only the first occurrence
+    let replaced = str.replace(oldChar,newChar);
+
+    document.getElementById("replaceResult").innerHTML =
+    "After Replacing One : " + replaced;
+}
+
+
+//================ Replace All Characters ===================
+
+function replaceAllCharacters()
+{
+    let str = document.getElementById("replaceStr").value;
+
+    let oldChar = document.getElementById("oldChar").value;
+
+    let newChar = document.getElementById("newChar").value;
+
+    if(str=="" || oldChar=="" || newChar=="")
+    {
+        alert("Please fill all fields.");
+        return;
+    }
+
+    // Check if character is present
+    if(!str.includes(oldChar))
+    {
+        document.getElementById("replaceResult").innerHTML =
+        "Character '" + oldChar + "' is not present in the string.";
+
+        return;
+    }
+
+    // Replace all occurrences
+    let replaced = str.replaceAll(oldChar,newChar);
+
+    document.getElementById("replaceResult").innerHTML =
+    "After Replacing All : " + replaced;
+}
+
+
+//================ Palindrome ===================
+
+function checkPalindrome()
+{
+
+    let str = document.getElementById("palStr").value;
+
+    if(str=="")
+    {
+        alert("Please enter a string.");
+        return;
+    }
+
+    let reversed = str.split("").reverse().join("");
+
+    if(str===reversed)
+    {
+        document.getElementById("palResult").innerHTML =
+        "Result : The string is a Palindrome.";
+    }
+    else
+    {
+        document.getElementById("palResult").innerHTML =
+        "Result : The string is Not a Palindrome.";
+    }
+
+}
+
+</script>
+
+</body>
+</html>

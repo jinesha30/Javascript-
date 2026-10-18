@@ -1,0 +1,133 @@
+<CodeBlock language="html" editable>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congratulations - Student Information</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #dbeafe, #dcfce7);
+            margin: 0;
+            padding: 30px 15px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+.card {
+            width: 100%;
+            max-width: 550px;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            box-sizing: border-box;
+        }
+h1 {
+            color: #15803d;
+            text-align: center;
+        }
+.subtitle {
+            text-align: center;
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+.details {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-wrap: anywhere;
+        }
+.details p {
+            margin: 12px 0;
+            line-height: 1.5;
+        }
+button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+button:hover {
+            background: #1d4ed8;
+        }
+.warning {
+            color: #b91c1c;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Congratulations!</h1>
+<p class="subtitle" id="welcomeMessage">
+            Your information has been submitted successfully.
+        </p>
+        <div class="details" id="studentDetails"></div>
+<button id="backButton" onclick="goBack()">
+            Back to Form
+        </button>
+    </div>
+<script>
+        const savedData = sessionStorage.getItem("studentInformation");
+const message = document.getElementById("welcomeMessage");
+        const details = document.getElementById("studentDetails");
+if (!savedData) {
+            message.textContent =
+                "No valid student submission was found.";
+            message.className = "subtitle warning";
+details.textContent =
+                "Please return to the form and submit your details.";
+} else {
+            try {
+                const student = JSON.parse(savedData);
+// Display welcome message
+                message.textContent =
+                    "Welcome, " + student.name +
+                    "! Your information has been submitted successfully.";
+// Student details to display
+                const fields = [
+                    ["Full Name", student.name],
+                    ["Address", student.address],
+                    ["City", student.city],
+                    ["State / Union Territory", student.state],
+                    ["Gender", student.gender],
+                    ["Mobile Number", student.mobile],
+                    ["Email ID", student.email]
+                ];
+// Display details safely
+                fields.forEach(function(field) {
+                    const paragraph = document.createElement("p");
+                    const label = document.createElement("strong");
+                    label.textContent = field[0] + ": ";
+paragraph.appendChild(label);
+                    paragraph.appendChild(
+                        document.createTextNode(field[1])
+                    );
+details.appendChild(paragraph);
+                });
+} catch (error) {
+                message.textContent =
+                    "Unable to display the submitted information.";
+message.className = "subtitle warning";
+                details.textContent =
+                    "Please return to the form and submit again.";
+            }
+        }
+// Return to the form
+        function goBack() {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
+</CodeBlock>

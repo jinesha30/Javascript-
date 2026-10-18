@@ -1,0 +1,420 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Countdown Timer</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #dbeafe, #f5f3ff);
+            text-align: center;
+            padding: 30px;
+            margin: 0;
+        }
+
+        .header-info {
+            width: 300px;
+            max-width: 90%;
+            margin: 0 auto 25px;
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            text-align: left;
+            font-size: 18px;
+            box-sizing: border-box;
+        }
+
+        .header-info p {
+            margin: 8px 0;
+        }
+
+        h1 {
+            color: #1e293b;
+            margin-bottom: 25px;
+        }
+
+        table {
+            margin: auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            padding: 15px;
+            border-spacing: 10px;
+        }
+
+        td {
+            padding: 8px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 180px;
+            max-width: 100%;
+            padding: 10px;
+            border: 1px solid #aaa;
+            border-radius: 6px;
+            font-size: 17px;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            border: 2px solid #6366f1;
+            outline: none;
+        }
+
+        button {
+            padding: 12px 25px;
+            margin: 25px 5px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .start-btn {
+            background-color: #22c55e;
+            color: white;
+        }
+
+        .start-btn:hover {
+            background-color: #16a34a;
+        }
+
+        .reset-btn {
+            background-color: #64748b;
+            color: white;
+        }
+
+        .reset-btn:hover {
+            background-color: #475569;
+        }
+
+        #timer {
+            display: inline-block;
+            max-width: 90%;
+            margin-top: 10px;
+            padding: 20px 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            font-size: 28px;
+            color: #1e293b;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        @media (max-width: 500px) {
+            body {
+                padding: 20px 10px;
+            }
+
+            table {
+                padding: 5px;
+                border-spacing: 5px;
+            }
+
+            td {
+                font-size: 15px;
+                padding: 5px;
+            }
+
+            input {
+                width: 145px;
+                font-size: 15px;
+            }
+
+            #timer {
+                font-size: 19px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Student Information -->
+
+    <div class="header-info">
+        <p><b>Name:</b> Jinesha Kothari</p>
+        <p><b>Roll No:</b> 42342</p>
+        <p><b>Div:</b> 7</p>
+        <p><b>Batch:</b> R7</p>
+    </div>
+
+    <h1>Countdown Timer</h1>
+
+    <!-- Date and Time Input Fields -->
+
+    <table>
+        <tr>
+            <td>Year</td>
+            <td>
+                <input type="number" id="year"
+                       placeholder="2026">
+            </td>
+        </tr>
+
+        <tr>
+            <td>Month</td>
+            <td>
+                <input type="number" id="month"
+                       placeholder="1-12">
+            </td>
+        </tr>
+
+        <tr>
+            <td>Date</td>
+            <td>
+                <input type="number" id="date"
+                       placeholder="1-31">
+            </td>
+        </tr>
+
+        <tr>
+            <td>Hours</td>
+            <td>
+                <input type="number" id="hours"
+                       placeholder="0-23">
+            </td>
+        </tr>
+
+        <tr>
+            <td>Minutes</td>
+            <td>
+                <input type="number" id="minutes"
+                       placeholder="0-59">
+            </td>
+        </tr>
+
+        <tr>
+            <td>Seconds</td>
+            <td>
+                <input type="number" id="seconds"
+                       placeholder="0-59">
+            </td>
+        </tr>
+    </table>
+
+    <!-- Buttons -->
+
+    <button class="start-btn" onclick="startTimer()">
+        Start Timer
+    </button>
+
+    <button class="reset-btn" onclick="resetTimer()">
+        Reset
+    </button>
+
+    <br>
+
+    <!-- Countdown Display -->
+
+    <h2 id="timer">
+        00 Years 00 Months 00 Days
+        00 Hours 00 Minutes 00 Seconds
+    </h2>
+
+    <script>
+        let interval;
+
+        // Start Countdown Timer
+
+        function startTimer() {
+            clearInterval(interval);
+            interval = null;
+
+            let year = document.getElementById("year").value;
+            let month = document.getElementById("month").value;
+            let date = document.getElementById("date").value;
+            let hours = document.getElementById("hours").value;
+            let minutes = document.getElementById("minutes").value;
+            let seconds = document.getElementById("seconds").value;
+
+            // Check for empty fields
+
+            if (
+                year === "" || month === "" || date === "" ||
+                hours === "" || minutes === "" || seconds === ""
+            ) {
+                document.getElementById("timer").innerHTML =
+                    "Please fill in all date and time fields.";
+                return;
+            }
+
+            year = Number(year);
+            month = Number(month);
+            date = Number(date);
+            hours = Number(hours);
+            minutes = Number(minutes);
+            seconds = Number(seconds);
+
+            // Validate input ranges
+
+            if (
+                !Number.isInteger(year) || year < 1 ||
+                !Number.isInteger(month) || month < 1 || month > 12 ||
+                !Number.isInteger(date) || date < 1 || date > 31 ||
+                !Number.isInteger(hours) || hours < 0 || hours > 23 ||
+                !Number.isInteger(minutes) || minutes < 0 || minutes > 59 ||
+                !Number.isInteger(seconds) || seconds < 0 || seconds > 59
+            ) {
+                document.getElementById("timer").innerHTML =
+                    "Please enter valid date and time values.";
+                return;
+            }
+
+            // Create target date
+
+            let targetDate = new Date(
+                year,
+                month - 1,
+                date,
+                hours,
+                minutes,
+                seconds
+            );
+
+            // Check whether the entered date is valid
+
+            if (
+                targetDate.getFullYear() !== year ||
+                targetDate.getMonth() !== month - 1 ||
+                targetDate.getDate() !== date ||
+                targetDate.getHours() !== hours ||
+                targetDate.getMinutes() !== minutes ||
+                targetDate.getSeconds() !== seconds
+            ) {
+                document.getElementById("timer").innerHTML =
+                    "Please enter a valid calendar date.";
+                return;
+            }
+
+            // Check whether the target date is in the future
+
+            if (targetDate <= new Date()) {
+                document.getElementById("timer").innerHTML =
+                    "Please enter a future date and time.";
+                return;
+            }
+
+            // Update countdown every second
+
+            function updateTimer() {
+                let now = new Date();
+
+                if (targetDate <= now) {
+                    clearInterval(interval);
+                    interval = null;
+
+                    document.getElementById("timer").innerHTML =
+                        "00 Years 00 Months 00 Days " +
+                        "00 Hours 00 Minutes 00 Seconds";
+
+                    return;
+                }
+
+                let y1 = now.getFullYear();
+                let m1 = now.getMonth();
+                let d1 = now.getDate();
+                let h1 = now.getHours();
+                let min1 = now.getMinutes();
+                let s1 = now.getSeconds();
+
+                let y2 = targetDate.getFullYear();
+                let m2 = targetDate.getMonth();
+                let d2 = targetDate.getDate();
+                let h2 = targetDate.getHours();
+                let min2 = targetDate.getMinutes();
+                let s2 = targetDate.getSeconds();
+
+                let years = y2 - y1;
+                let months = m2 - m1;
+                let days = d2 - d1;
+                let remainingHours = h2 - h1;
+                let remainingMinutes = min2 - min1;
+                let remainingSeconds = s2 - s1;
+
+                // Borrow seconds
+
+                if (remainingSeconds < 0) {
+                    remainingSeconds += 60;
+                    remainingMinutes--;
+                }
+
+                // Borrow minutes
+
+                if (remainingMinutes < 0) {
+                    remainingMinutes += 60;
+                    remainingHours--;
+                }
+
+                // Borrow hours
+
+                if (remainingHours < 0) {
+                    remainingHours += 24;
+                    days--;
+                }
+
+                // Borrow days
+
+                if (days < 0) {
+                    months--;
+
+                    let previousMonthDays =
+                        new Date(y2, m2, 0).getDate();
+
+                    days += previousMonthDays;
+                }
+
+                // Borrow months
+
+                if (months < 0) {
+                    months += 12;
+                    years--;
+                }
+
+                // Display countdown
+
+                document.getElementById("timer").innerHTML =
+                    years + " Years " +
+                    months + " Months " +
+                    days + " Days " +
+                    remainingHours + " Hours " +
+                    remainingMinutes + " Minutes " +
+                    remainingSeconds + " Seconds";
+            }
+
+            updateTimer();
+
+            interval = setInterval(updateTimer, 1000);
+        }
+
+        // Reset Countdown Timer
+
+        function resetTimer() {
+            clearInterval(interval);
+            interval = null;
+
+            document.getElementById("year").value = "";
+            document.getElementById("month").value = "";
+            document.getElementById("date").value = "";
+            document.getElementById("hours").value = "";
+            document.getElementById("minutes").value = "";
+            document.getElementById("seconds").value = "";
+
+            document.getElementById("timer").innerHTML =
+                "00 Years 00 Months 00 Days " +
+                "00 Hours 00 Minutes 00 Seconds";
+        }
+    </script>
+
+</body>
+</html>

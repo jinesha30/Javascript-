@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Information Form</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #dbeafe, #f5f3ff);
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        h1 {
+            text-align: center;
+            color: darkblue;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 25px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .section {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: 2px solid #93c5fd;
+            border-color: #2563eb;
+        }
+
+        .error {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            color: #dc2626;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Student Information Form</h1>
+
+    <div class="container">
+
+        <form id="studentForm" novalidate>
+
+            <div class="section">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name"
+                       placeholder="Enter your full name"
+                       autocomplete="name">
+                <div class="error" id="nameError"></div>
+            </div>
+
+            <div class="section">
+                <label for="address">Address:</label>
+                <textarea id="address" rows="3"
+                          placeholder="Enter your complete address"
+                          autocomplete="street-address"></textarea>
+                <div class="error" id="addressError"></div>
+            </div>
+
+            <div class="section">
+                <label for="city">City:</label>
+                <input type="text" id="city"
+                       placeholder="Enter your city"
+                       autocomplete="address-level2">
+                <div class="error" id="cityError"></div>
+            </div>
+
+            <div class="section">
+                <label for="state">State / Union Territory:</label>
+                <input type="text" id="state"
+                       placeholder="e.g. Maharashtra"
+                       autocomplete="address-level1">
+                <div class="error" id="stateError"></div>
+            </div>
+
+            <div class="section">
+                <label for="gender">Gender:</label>
+                <select id="gender">
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                    <option value="Prefer not to say">
+                        Prefer not to say
+                    </option>
+                </select>
+                <div class="error" id="genderError"></div>
+            </div>
+
+            <div class="section">
+                <label for="mobile">Mobile Number:</label>
+                <input type="tel" id="mobile"
+                       placeholder="Enter Indian mobile number"
+                       autocomplete="tel"
+                       inputmode="tel">
+                <div class="error" id="mobileError"></div>
+            </div>
+
+            <div class="section">
+                <label for="email">Email ID:</label>
+                <input type="email" id="email"
+                       placeholder="example@gmail.com"
+                       autocomplete="email">
+                <div class="error" id="emailError"></div>
+            </div>
+
+            <button type="submit">Submit</button>
+
+        </form>
+
+        <div id="result" role="alert" aria-live="polite"></div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
